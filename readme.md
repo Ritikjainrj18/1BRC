@@ -1,7 +1,7 @@
 # Brute approach 
 
 * For calculating mean do not divide at each line, as division operation are costly.
-* TotalSeconds      : 90.1746671
+* Execution time    : 90.1746671s
 
 
 <!-- 
@@ -14,13 +14,14 @@
 -  Measure-Command { go run main.go }
 
 -->
-
+<!--
 # Memory mapping  
 
 * mmap is used to avoid frequent io calls. To access any byte an io call is required.
 * Virtually map the file to an array. This is done once, and now can acces file like a array
-* TotalSeconds      : 8.3929657  (no processing just counting)
-    
+* Execution time    : 8.3929657s  (no processing just counting)
+ -->
+
 <!-- 
 // real    19m22.253s
 // user    0m8.208s
@@ -28,11 +29,16 @@
 
 # Custom integer parsing + Memory mapping
 
-* not using float rather taking advantage of values have one decimal place, so directly convert the string to integer(value * 10).   
-* TotalSeconds      : 68.7197756
+* Not using float rather taking advantage of values have one decimal place, so directly convert the string to integer(value * 10).   
+* Execution time    : 68.7197756s
 
 
 # Go routines + Memory mapping 
 
 * Divided the file into chunks and process these chunks on differnt cores
-* TotalSeconds      : 16.6721442
+* Execution time    : 12.0857479s
+
+# Custom Map with linear probing
+
+* Custom hashmap using FNV-1a hashing algorithm and handling collison through linear probing 
+* Execution time    : 4.0971261s
